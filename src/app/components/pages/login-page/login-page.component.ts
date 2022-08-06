@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
   loginForm!:FormGroup;
@@ -19,15 +19,17 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email:['', [Validators.required,Validators.email]],
+      email:['', [Validators.required,Validators.email]], // Validators المدقق هو دالة تقوم بمعالجة FormControl أو مجموعة من عناصر التحكم وإرجاع مخطط خطأ أو فارغ. تعني الخريطة الفارغة أن عملية التحقق قد اجتازت. 
       password:['', Validators.required]
     });
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl;
+    // snapshot bedeuted das letzte wert(value) von activatedRoute
+    // queryParams für werte bedeuted alles nach fragezeichen
   }
 
   get fc(){
-    return this.loginForm.controls;
+    return this.loginForm.controls;  // controls !!
   }
 
   submit(){
