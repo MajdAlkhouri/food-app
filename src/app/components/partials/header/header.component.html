@@ -5,16 +5,16 @@
 
         <nav> 
 <ul>
-    <li>
+    <li *ngIf="!isAuth"> <!-- بتبين بس لما ما يسجل الدخول-->
         <a routerLink="/login">Login</a>
     </li>
-    <li class="menu-container">
-        <a routerLink="/dashboard">Majd</a>
+    <li *ngIf="isAuth" class="menu-container"> <!-- بتبين بس لما يسجل الدخول-->
+        <a routerLink="/dashboard">{{user.name}}</a>
 
         <div class="menu">
             <a routerlink="/profile">Profile</a>
             <a routerlink="/orders">Orders</a>
-            <a>Logout</a>
+            <a (click)="logout()">Logout</a>
                 </div>
 
     </li>

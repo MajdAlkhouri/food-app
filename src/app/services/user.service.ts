@@ -13,7 +13,7 @@ const USER_KEY = 'User';
 })
 export class UserService {
   private userSubject =
-  new BehaviorSubject<User>(new User());
+  new BehaviorSubject<User>(this.getUserFromLocalStorage());
   public userObservable:Observable<User>;
   constructor(private http:HttpClient, private toastrService:ToastrService) {
     this.userObservable = this.userSubject.asObservable();
@@ -44,17 +44,19 @@ export class UserService {
   
   logout(){
     this.userSubject.next(new User());
-    localStorage.removeItem(USER_KEY);
-    window.location.reload();
+    localStorage.removeItem(USER_KEY); // user key soll weg sein
+    window.location.reload(); // refresh the page
   }
 
   private setUserToLocalStorage(user:User){
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    localStorage.setItem(USER_KEY, JSON.stringify(user)); // set the key 
   }
 
   private getUserFromLocalStorage():User{
-    const userJson = localStorage.getItem(USER_KEY);
-    if(userJson) return JSON.parse(userJson) as User;
+    const userJson = localStorage.getItem(USER_KEY); // get the key
+    if(userJson) return JSON.parse(userJson) as User;   // JSON. parse rekonstruiert eigenständig einen JavaScript-Wert aus dem übergebenen JSON-String. Dabei werden Array- und Objektliterale, Zahlen, boolesche Werte und null automatisch konvertiert.
+   // جسون. يعيد التحليل بشكل مستقل بناء قيمة JavaScript من سلسلة JSON التي تم تمريرها. يتم تحويل القيم الحرفية للصفيف والكائن والأرقام والقيم المنطقية والقيم الخالية تلقائيًا.
+  
     return new User();
   }
 }
